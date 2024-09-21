@@ -1,30 +1,40 @@
 #include "opencv2/opencv.hpp"
 #include "iostream"
 
+using namespace std;
+using namespace cv;
+
 int main(int, char**) {
     // open the first webcam plugged in the computer
-    cv::VideoCapture camera(0);
+    VideoCapture camera(0);
     if (!camera.isOpened()) {
-        std::cerr << "ERROR: Could not open camera" << std::endl;
+        cerr << "ERROR: Could not open camera" << endl;
         return 1;
     }
 
     // create a window to display the images from the webcam
-    cv::namedWindow("Webcam", cv::WINDOW_AUTOSIZE);
+    namedWindow("Webcam", WINDOW_AUTOSIZE);
+    namedWindow("Flipped webcam", WINDOW_AUTOSIZE);
 
     // this will contain the image from the webcam
-    cv::Mat frame;
+    Mat frame, flippedFrame;
 
     // capture the next frame from the webcam
     camera >> frame;
 
+    //flip
+    flip(frame, flippedFrame, 1);
+
     // display the frame until you press a key
     while (1) {
         // show the image on the window
-        cv::imshow("Webcam", frame);
+        imshow("Webcam", frame);
+	imshow("Flipped webcam", flippedFrame);
+
         // wait (10ms) for a key to be pressed
-        if (cv::waitKey(10) >= 0)
+        if (waitKey(10) >= 0)
             break;
+
     }
     return 0;
 }
