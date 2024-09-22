@@ -18,7 +18,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add the executable
 add_executable(test cvtest.cpp)
+add_executable(circle hughcircle.cpp)
 
 # Link OpenCV libraries
 target_link_libraries(test ${OpenCV_LIBS})
+target_link_libraries(circle ${OpenCV_LIBS})
 
