@@ -27,6 +27,9 @@ def database():
 def experiment():
     return render_template('experiment.html')
 
+@app.route('/humidity')
+def humidity():
+    return render_template('humidity.html')
 # Serve gas sensor page and read sensor data
 @app.route('/gas')
 def gas_test():
