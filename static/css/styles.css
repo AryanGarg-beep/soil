@@ -17,6 +17,7 @@ body {
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    font-family: 'Orbitron';
 }
 
 .header {
@@ -52,6 +53,15 @@ h1 {
 .button-container {
     display: flex;
     justify-content: space-between;
+    font-family: 'Genos';
+}
+
+
+.icon-problem{
+    margin-left: -5px;
+    height: 80px;
+    margin-bottom: 8px;
+    display: block;
 }
 
 .btn {
