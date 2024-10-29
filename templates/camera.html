@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam RGB Capture</title>
+    <script>
+        function getRGB(event) {
+            const video = document.getElementById('videoFeed');
+            const rect = video.getBoundingClientRect();
+            const x = Math.floor(event.clientX - rect.left);
+            const y = Math.floor(event.clientY - rect.top);
+
+            fetch(`/get_rgb/${x}/${y}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.rgb) {
+                        alert(`Coordinates: (${x}, ${y}), RGB: ${data.rgb}`);
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+</head>
+<body>
+    <h1>Webcam RGB Capture</h1>
+    <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Video feed" onclick="getRGB(event)" style="cursor: pointer;">
+</body>
+</html>
