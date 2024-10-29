@@ -13,7 +13,7 @@ except serial.SerialException as e:
     ser = None
     print(f"Error opening serial port: {e}")
 
-cap = cv2.VideoCapture()
+cap = cv2.VideoCapture(0)
 # Store sensor values globally
 sensor_values = []
 
@@ -82,9 +82,10 @@ def gas_test():
 #        return jsonify({'error': 'No data available'}), 503
 
 @app.route('/camera')
-def camera_feed():
+def camera_test():
+    return render_template('camera_feed.html')
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    #return render_template('camera_feed.html')
+    
 
 
 # Serve the results page
