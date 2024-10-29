@@ -106,8 +106,12 @@
             fetch('/sensor-data')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.sensor_value) {
-                        const { temperature, humidity } = data.sensor_value;
+                    // Display temperature and humidity if available
+                    if (data.temperature !== undefined && data.humidity !== undefined) {
+                        const temperature = data.temperature;
+                        const humidity = data.humidity;
+
+                        // Display sensor values
                         document.getElementById('sensor-value').innerText = `Temperature: ${temperature} °C, Humidity: ${humidity} %`;
 
                         // Update chart data
@@ -122,12 +126,41 @@
                         sensorChart.data.datasets[0].data.push(temperature); // Add temperature data
                         sensorChart.data.datasets[1].data.push(humidity); // Add humidity data
                         sensorChart.update(); // Update the chart
+                    } else {
+                        console.error('Error: No valid data received');
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching sensor data:', error);
                 });
         }
+
+//        function fetchSensorData() {
+//           fetch('/sensor-data')
+//                .then(response => response.json())
+//                .then(data => {
+//                    if (data.sensor_value) {
+//                        const { temperature, humidity } = data.sensor_value;
+//                        document.getElementById('sensor-value').innerText = `Temperature: ${temperature} °C, Humidity: ${humidity} %`;
+
+                        // Update chart data
+//                        const now = new Date().toLocaleTimeString(); // Current time for labels
+//                        if (sensorChart.data.labels.length >= 15) {
+//                            sensorChart.data.labels.shift(); // Remove the oldest label
+//                            sensorChart.data.datasets[0].data.shift(); // Remove oldest temperature
+//                            sensorChart.data.datasets[1].data.shift(); // Remove oldest humidity
+//                        }
+
+//                        sensorChart.data.labels.push(now); // Add current time label
+//                        sensorChart.data.datasets[0].data.push(temperature); // Add temperature data
+//                        sensorChart.data.datasets[1].data.push(humidity); // Add humidity data
+//                        sensorChart.update(); // Update the chart
+//                    }
+//                })
+//                .catch(error => {
+//                    console.error('Error fetching sensor data:', error);
+//                });
+//        }
 
         // Fetch new sensor data every second
         setInterval(fetchSensorData, 1000);

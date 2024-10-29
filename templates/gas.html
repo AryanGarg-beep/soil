@@ -82,7 +82,7 @@ p{
                     borderWidth: 1,
                     fill: false,
                 }]
-            },
+                },
             options: {
                 responsive: false, // Disable responsive behavior
                 scales: {
@@ -93,22 +93,44 @@ p{
             }
         });
 
+        //function fetchSensorData() {
+        //    fetch('/sensor-data')
+        //        .then(response => response.json())
+        //        .then(data => {
+        //            if (data.sensor_value) {
+        //                document.getElementById('sensor-value').innerText = data.sensor_value;
+
+                        // Update chart data
+        //                sensorChart.data.labels.push(''); // Add label for X axis
+        //                sensorChart.data.datasets[0].data.push(data.sensor_value); // Add new sensor value
+        //                sensorChart.update(); // Update the chart
+        //            }
+        //        })
+        //        .catch(error => {
+        //            console.error('Error fetching sensor data:', error);
+        //        });
+      //  }
+
         function fetchSensorData() {
             fetch('/sensor-data')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.sensor_value) {
-                        document.getElementById('sensor-value').innerText = data.sensor_value;
+                    document.getElementById('sensor-value').innerText = data.sensor_value;
 
-                        // Update chart data
-                        sensorChart.data.labels.push(''); // Add label for X axis
-                        sensorChart.data.datasets[0].data.push(data.sensor_value); // Add new sensor value
-                        sensorChart.update(); // Update the chart
+                    // Add new data to the chart
+                    const newLabel = new Date().toLocaleTimeString();
+                    sensorChart.data.labels.push(newLabel);
+                    sensorChart.data.datasets[0].data.push(data.sensor_value === "Detected" ? 1 : 0);
+
+                    // Limit to last 20 entries
+                    if (sensorChart.data.labels.length > 20) {
+                        sensorChart.data.labels.shift();
+                        sensorChart.data.datasets[0].data.shift();
                     }
+
+                    sensorChart.update();
                 })
-                .catch(error => {
-                    console.error('Error fetching sensor data:', error);
-                });
+                .catch(error => console.error('Error fetching sensor data:', error));
         }
 
         // Fetch new sensor data every second
