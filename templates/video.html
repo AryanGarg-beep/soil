@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <title>Dual Camera Feeds</title>
+    <style>
+        /* Styling the container for side-by-side video feeds */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Space between the two video boxes */
+            margin-top: 20px;
+        }
+        
+        /* Each video box */
+        .video-box {
+            width: 640px;
+            height: 480px;
+            border: 2px solid #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        /* Image styling within each box */
+        .video-box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        h1 {
+            font-size: 50px;
+            font-family: 'Orbitron';
+            color: rgb(135, 135, 255);
+            font-weight: 100;
+            letter-spacing: 8px;
+            word-spacing: 10px;
+            text-align: center;
+        }
+
+        .line{
+            width: 70px;
+            margin-bottom: 50px;
+            padding: 3px;
+            text-align: center;
+            background-color: rgb(84, 14, 165);
+            border-radius: 10px;
+            margin-left: 43%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dual Camera Feeds</h1>
+
+    <div class="line"></div>
+    
+    <div class="container">
+        <!-- First camera feed -->
+        <div class="video-box">
+            <h3>Camera Feed 1</h3>
+            <img src="{{ url_for('video_feed1') }}" alt="Camera 1 Feed">
+        </div>
+        
+        <!-- Second camera feed -->
+        <div class="video-box">
+            <h3>Camera Feed 2</h3>
+            <img src="{{ url_for('video_feed2') }}" alt="Camera 2 Feed">
+        </div>
+    </div>
+</body>
+</html>
